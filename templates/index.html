@@ -4,7 +4,7 @@
         <meta charset="UTF-8"/>
         <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
         <title>AI Smart Resume Screening System</title>
-        <link rel="stylesheet" href="{{ url_for('static', filename='style.css')}}"/>
+        <link rel="stylesheet" href="../static/style.css"/>
     </head>
     <body>
         <div class="container">
@@ -19,7 +19,7 @@
             </div>
 
             <div id="tab-single" class="tab-panel active">
-                    <div>
+                    <div class="upload-box">
                         <input type="file" id="resumeUpload" accept=".pdf">
                         <label for="resumeUpload" class="upload-label">
                             <span>Click to upload or drag &amp; drop pdf only</span>
@@ -81,7 +81,7 @@
 
 
                 <h3>Candidate Rankings</h3>
-                <table border="1">
+                <table>
                     <thead>
                         <tr>
                             <th>Name</th>
