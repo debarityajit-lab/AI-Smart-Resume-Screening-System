@@ -84,3 +84,17 @@ def safe_parse_json(raw: str) -> dict:
     raw=re.sub(r"^```(?:json)?", "", raw, flags=re.IGNORECASE).strip()
     raw=re.sub(r"```$", "", raw).strip()
     return json.loads(raw)
+
+def sanitize_result(result: dict) -> dict:
+    """Apply defaults and clamp values so the frontend always gets clean data."""
+    result.setdefault("candidate_name", "Unknown Candidate")
+    result.setdefault("score", 0)
+    result.setdefault("score_reason", "")
+    result.setdefault("skills", [])
+    result.setdefault("missing_skills", [])
+    result.setdefault("experience_years", None)
+    result.setdefault("education", "Not specified")
+    result.setdefault("suggestions", [])
+    result["score"]=max(0, min(100, int(result["score"])))
+    return result
+
