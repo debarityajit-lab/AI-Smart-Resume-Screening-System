@@ -124,7 +124,7 @@ def analyze_single(file, job_description: str) -> dict:
     result["filename"]=filename
     return sanitize_result(result)
 
-@app.route("\analyze", methods=["POST"])
+@app.route("/analyze", methods=["POST"])
 def analyze_resume():
     """Analyze one resume and return the result."""
     if "resume" not in request.files:
@@ -139,7 +139,7 @@ def analyze_resume():
         return jsonify({"error": f"AI analysis failed: {str(e)}"}), 500
     return jsonify(result)
 
-@app.route("\analyze-batch", methods=["POST"])
+@app.route("/analyze-batch", methods=["POST"])
 def analyze_batch():
     """
     Accept multiple resume PDFs and one job description.
