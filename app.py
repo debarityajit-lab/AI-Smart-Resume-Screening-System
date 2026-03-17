@@ -19,3 +19,16 @@ def index():
 @app.route("/health", methods=["GET"])
 def health():
     return jsonify({"status":"ok"})
+
+def extract_text_from_pdf(file) -> str:
+    """Extract all text from an uploaded PDF file."""
+    text=""
+    try:
+        with pdfplumber.open(file)as pdf:
+            for page in pdf.pages:
+                page_text=page.extract_text()
+                if page_text:
+                    text+=page_text+"\n"
+    except Exception as e:
+        raise ValueError(f"Could not read PDF: {e}")
+    return text.strip()
