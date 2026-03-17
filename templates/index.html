@@ -1,8 +1,8 @@
 <!DOCTYPE html>
-<html lang en="">
+<html lang="en">
     <head>
         <meta charset="UTF-8"/>
-        <meta name="viewport" content="width=device-width, initial scale=1.0"/>
+        <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
         <title>AI Smart Resume Screening System</title>
         <link rel="stylesheet" href="{{ url_for('static', filename='style.css')}}"/>
     </head>
@@ -19,20 +19,20 @@
             </div>
 
             <div id="tab-single" class="tab-panel active">
-                <div id="single-drop" class="upload-box">
-                    <input type="file" id="resumeUpload" accept=".pdf">
-                    <label for="resumeUpload" class="upload-label">
-                        <span>Click to upload or drag &amp; drop pdf only</span>
-                    </label>
-                </div>
+                    <div>
+                        <input type="file" id="resumeUpload" accept=".pdf">
+                        <label for="resumeUpload" class="upload-label">
+                            <span>Click to upload or drag &amp; drop pdf only</span>
+                        </label>
+                    </div>
+                    
+                    <div>
+                        <textarea id="jobDescription" placeholder="Paste Job Description here(optional)"></textarea>
+                    </div>
 
-                <div id="single-filename" class="filename-display">
-                    <textarea id="jobDescription" placeholder="Paste Job Description here(optional)"></textarea>
-                 </div>
-                
                 <button id="single-btn" onclick="analyzeResume()">Analyze Resume</button>
             
-            <div id="error-box" class="error-box"></div>
+            <div id="error-box"></div>
             
             <div id="results">
                 <div class="result-row">
@@ -40,35 +40,59 @@
                 </div>
                 <div class="meta-block">
                     <div class="meta-row" id="meta-name"></div>
-                    <div class="meta-row muted" id="meta-exp"></div>
-                    <div class="meta-row muted" id="meta-edu"></div>
+                    <div class="meta-row" id="meta-exp"></div>
+                    <div class="meta-row" id="meta-edu"></div>
                     <div class="score-reason" id="score-reason"></div>
                 </div>
-            </div>
             
-            <div class="section-label">Skills Detected:</div>
-            <div class="tag-group" id="skill-tags"></div>
-
-            <div class="section-label" id="missing-label" style="display:none">Missing Skills:</div>
-            <div class="tag-group" id="missing-tags"></div>
-
-            <div class="section-label">Suggestions</div>
-            <ul class="suggestion-list" id="suggestions-list"></ul>
-            </div>
-        </div>
-
-
-        <div id="tab-hr" class="tab-panel">
-            <textarea id="hr-jd" placeholder="Paste Job Description(required for ranking)"></textarea>
             
-            <div id="hr-drop" class="upload-box">
-                <input type="file" id="hrUpload" accept=".pdf" multiple>
-                <label for="hrUpload" class="upload-label">
-                    <span>Upload multiple Resumes</span>
-                    <span class="upload-hint">PDF only. Hold ctrl/cmd to upload multiple</span>
-                </label>
+                <div class="section-label">Skills Detected:</div>
+                <div class="tag-group" id="skills-tags"></div>
+
+                <div class="section-label" id="missing-label" style="display:none">Missing Skills:</div>
+                <div class="tag-group" id="missing-tags"></div>
+
+                <div class="section-label">Suggestions</div>
+                <ul class="suggestion-list" id="suggestions-list"></ul>
+                </div>
             </div>
-        </div>
+        
+
+
+            <div id="tab-hr" class="tab-panel">
+                <textarea id="hr-jd" placeholder="Paste Job Description(required for ranking)"></textarea>
+                
+                <div id="hr-drop" class="upload-box">
+                    <input type="file" id="hrUpload" accept=".pdf" multiple>
+                    <label for="hrUpload" class="upload-label">
+                        <span>Click to Upload multiple Resumes. </span>
+                        <span class="upload-hint">PDF only. Hold ctrl/cmd to upload multiple</span>
+                    </label>
+                </div>
+
+                
+                    <button id="hr-btn" onclick="analyzeBatch()">Rank all Candidates</button>
+                
+                <div id="hr-results">
+                    <div id="stat-total">Total Candidates: 0</div>
+                    <div id="stat-avg">Average Score: 0</div>
+                    <div id="stat-top-scorer">Top Scorer: N/A</div>
+                </div>
+
+
+                <h3>Candidate Rankings</h3>
+                <table border="1">
+                    <thead>
+                        <tr>
+                            <th>Name</th>
+                            <th>Score</th>
+                        </tr>
+                    </thead>
+                    <tbody id="rank-body"></tbody>
+                </table>
+
+            </div>
+    </div>
         <script src="{{ url_for('static', filename='script.js') }}"></script>
     </body>
 </html>
