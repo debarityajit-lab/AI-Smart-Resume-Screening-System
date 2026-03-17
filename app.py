@@ -11,3 +11,11 @@ CORS(app)
 
 genai.configure(api_key=os.environ.get("GEMINI_API_KEY","YOUR_API_KEY"))
 model=genai.GenerativeModel("gemini-1.5-flash")
+
+@app.route("/")
+def index():
+    return render_template("index.html")
+
+@app.route("/health", methods=["GET"])
+def health():
+    return jsonify({"status":"ok"})
