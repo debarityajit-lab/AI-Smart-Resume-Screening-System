@@ -17,6 +17,21 @@
                 <button class="tab active" onclick="switchTab('single',this)">Single Resume</button>
                 <button class="tab" onclick="switchTab('hr',this)">HR Dashboard</button>
             </div>
+
+            <div id="tab-single" class="tab-panel active">
+                <div id="single-drop" class="upload-box">
+                    <input type="file" id="resumeUpload" accept=".pdf">
+                    <label for="resumeUpload" class="upload-label">
+                        <span>Click to upload or drag &amp; drop pdf only</span>
+                    </label>
+                </div>
+
+                <div id="single-filename" class="filename-display">
+                    <textarea id="jobDescription" placeholder="Paste Job Description here(optional)"></textarea>
+                 </div>
+                
+
+            </div>
         
         
         </div>
