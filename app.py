@@ -77,3 +77,10 @@ Resume:
 {resume_text}
 \"\"\"
 """
+
+def safe_parse_json(raw: str) -> dict:
+    """Parse JSON from Gemini's response, strippin any accidental markdown fences."""
+    raw=raw.strip()
+    raw=re.sub(r"^```(?:json)?", "", raw, flags=re.IGNORECASE).strip()
+    raw=re.sub(r"```$", "", raw).strip()
+    return json.loads(raw)
