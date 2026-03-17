@@ -123,3 +123,18 @@ def analyze_single(file, job_description: str) -> dict:
         }
     result["filename"]=filename
     return sanitize_result(result)
+
+@app.route("\analyze", methods=["POST"])
+def analyze_resume():
+    """Analyze one resume and return the result."""
+    if "resume" not in request.files:
+        return jsonify({"error": "No resume file uploaded."}), 400
+    file=request.files["resume"]
+    if file.filename=="":
+        return jsonify({"error": "Empty filename-please select a PDF."}), 400
+    job_description=request.form.get("job_description", "").strip()
+    try:
+        result=analyze_single(file, job_description)
+    except ValueError as e:
+        return jsonify({"error": f"AI analysis failed: {str(e)}"}), 500
+    return jsonify(result)
