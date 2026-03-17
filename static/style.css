@@ -12,6 +12,7 @@ body
     justify-content: center;
     padding: 40px 16px;
     color: white;
+    min-height: 100vh;
 }
 .container
 {
@@ -113,4 +114,75 @@ button:not(.tab)
     font-size:15px;
     margin-top:10px;
 }
-
+#results
+{
+    margin-top: 15px;
+    display: none;
+}
+#score-text
+{
+    font-size:18px;
+    margin-bottom:10px;
+}
+#meta-name,#meta-exp,#meta-edu
+{
+    font-size:13px;
+    margin-bottom: 3px;
+}
+#score-reason
+{
+    font-size:12px;
+    background: #a0b0c0;
+    margin-top:6px;
+}
+.section-label
+{
+    font-size:12px;
+    background:#7a99b0;
+    margin-top:12px;
+}
+.tag-group
+{
+    display:flex;
+    flex-wrap:wrap;
+    gap:5px;
+}
+.tag
+{
+    background: #00c6ff20;
+    color: #00c6ff;
+    padding: 3px 8px;
+    border-radius: 12px;
+    font-size: 11px;
+}
+.suggestion-list
+{
+    list-style: none;
+}
+.suggestion-list li
+{
+    font-size:12px;
+    margin-bottom:5px;
+    color: #a0b0c0;
+}
+#hr-results
+{
+    margin-top: 15px;
+    font-size:15px;
+}
+table
+{
+    width:100%;
+    margin-top:10px;
+    border-collapse:collapse;
+}
+th,td
+{
+    border: 1px solid #3a5068;
+    padding: 8px;
+    font-size: 15px;
+}
+th
+{
+    background: #253545;
+}
