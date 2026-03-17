@@ -71,3 +71,55 @@ function analyzeResume()
             btn.textContent = 'Analyze Resume';
         });
 }
+function renderSingleResult(data, hasJobDescription) 
+{
+    var score = data.score || 0;
+    var color = scoreColor(score);
+     var scoreEl = document.getElementById('score-text');
+    scoreEl.textContent = 'Score: ' + score + '/100';
+    scoreEl.style.color = color;
+    document.getElementById('meta-name').textContent = data.candidate_name || '';
+    document.getElementById('meta-exp').textContent  = data.experience_years != null
+        ? ''+ data.experience_years + ' years experience'
+        : '';
+     document.getElementById('meta-edu').textContent  = data.education
+        ?'' + data.education
+        : '';
+    document.getElementById('score-reason').textContent = data.score_reason || '';
+    var skillsEl = document.getElementById('skills-tags');
+    if (data.skills && data.skills.length) {
+        skillsEl.innerHTML = data.skills
+            .map(function(skill) {
+                return '<span class="tag">' + skill + '</span>';
+            })
+            .join('');
+    } else {
+        skillsEl.innerHTML = '<span style="font-size:13px;color:#5a7a90">None detected</span>';
+    }
+     var missingLabel = document.getElementById('missing-label');
+    var missingEl    = document.getElementById('missing-tags');
+
+    if (hasJobDescription && data.missing_skills && data.missing_skills.length) {
+        missingLabel.style.display = 'block';
+        missingEl.innerHTML = data.missing_skills
+            .map(function(skill) {
+                return '<span class="tag tag-missing">' + skill + '</span>';
+            })
+            .join('');
+    } else {
+        missingLabel.style.display = 'none';
+        missingEl.innerHTML = '';
+    }
+
+    var suggestionsEl = document.getElementById('suggestions-list');
+    if (data.suggestions && data.suggestions.length) {
+        suggestionsEl.innerHTML = data.suggestions
+            .map(function(tip) {
+                return '<li>' + tip + '</li>';
+            })
+            .join('');
+    } else {
+        suggestionsEl.innerHTML = '';
+    }
+   docment.getElementById('results').style.display = 'block';
+}
