@@ -98,3 +98,28 @@ def sanitize_result(result: dict) -> dict:
     result["score"]=max(0, min(100, int(result["score"])))
     return result
 
+def analyze_single(file, job_description: str) -> dict:
+    """
+    Core analysis logic shared by both /analyze and /analyze-batch.
+    Returns a santizied result dict, or raises on hand errors.
+    """
+    filename=file.filename
+    if not filename.lower().endswith(".pdf"):
+        raise ValueError(f"{filename} is not a PDF.")
+    resume_text=extract_text_from_pdf(file)
+    if not resume_text:
+        raise ValueError(f"Could not extract text from '{filename}'. Make sure it is not a scanned image-only PDF.")
+    prompt=build_prompt(resume_text, job_description)
+    response=model.generate_content(prompt)
+    try:
+        result=safe_parse_json(response.text)
+    except json.JSONDecodeError:
+        result={
+            "score": 0,
+            "score_reason": "Could not parse structured AI response.",
+            "skills": [],
+            "missing_skills": [],
+            "suggestions": [response.text],
+        }
+    result["filename"]=filename
+    return sanitize_result(result)
