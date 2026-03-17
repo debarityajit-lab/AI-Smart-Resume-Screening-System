@@ -7,7 +7,19 @@
         <link rel="stylesheet" href="{{ url_for('static', filename='style.css')}}"/>
     </head>
     <body>
+        <div class="container">
+            <div class="header">
+                <h1>AI Smart Resume Screening System</h1>
+                <p class="subtitle">Upload your resume here and get instant AI feedback</p>
+            </div>
+            
+            <div class="tags">
+                <button class="tab active" onclick="switchTab('single',this)">Single Resume</button>
+                <button class="tab" onclick="switchTab('hr',this)">HR Dashboard</button>
+            </div>
         
+        
+        </div>
         <script src="{{ url_for('static', filename='script.js') }}"></script>
     </body>
 </html>
