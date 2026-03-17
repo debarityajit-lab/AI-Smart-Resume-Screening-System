@@ -123,3 +123,51 @@ function renderSingleResult(data, hasJobDescription)
     }
    docment.getElementById('results').style.display = 'block';
 }
+function analyzeBatch() 
+{
+    var filesInput = document.getElementById('hrUpload');
+    var jd         = document.getElementById('hr-jd').value.trim();
+    var errBox     = document.getElementById('error-box'); 
+    var resultsEl  = document.getElementById('hr-results');
+    var btn        = document.getElementById('hr-btn');
+
+     clearError(errBox);
+    resultsEl.style.display = 'none';
+
+     if (!filesInput.files.length) 
+        {
+        showError(errBox, 'Please select at least one PDF resume.');
+        return;
+        }
+    if (!jd) {
+        showError(errBox, 'Please paste a job description so candidates can be ranked.');
+        return;
+    }
+     var formData = new FormData();
+    Array.from(filesInput.files).forEach(function(file) {
+        formData.append('resumes', file);
+    });
+    formData.append('job_description', jd);
+
+    btn.disabled = true;
+    btn.textContent = 'Processing ' + filesInput.files.length + ' resume(s)… ';
+    
+    fetch('/analyze-batch', { method: 'POST', body: formData })
+        .then(function(response) {
+            return response.json();
+        })
+        .then(function(data) {
+            if (data.error) {
+                showError(errBox, data.error);
+                return;
+            }
+            renderDashboard(data);
+        })
+        .catch(function(err) {
+            showError(errBox, 'Network error: ' + err.message);
+        })
+        .finally(function() {
+            btn.disabled = false;
+            btn.textContent = 'Rank all Candidates';
+        });
+}
