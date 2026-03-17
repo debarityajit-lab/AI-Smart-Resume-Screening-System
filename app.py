@@ -9,7 +9,7 @@ import os
 app=Flask(__name__)
 CORS(app)
 
-genai.configure(api_key=os.environ.get("GEMINI_API_KEY","YOUR_API_KEY"))
+genai.configure(api_key=os.environ.get("GEMINI_API_KEY","AIzaSyDpM6X-PiUzJSA1UByAy2zjzboTYpqO3bQ"))
 model=genai.GenerativeModel("gemini-1.5-flash")
 
 @app.route("/")
@@ -44,7 +44,7 @@ Job Description provided:
 \"\"\"
 Also identify skills mentioned in the job description that are MISSING from the resume.
 """
-        return f"""
+    return f"""
 You are an expert resume reviewer and HR specialist.
 Analyze the resume below and respond ONLY with a valid JSON object-no markdown fences, no extra text.
 The JSON must have exactly these keys:

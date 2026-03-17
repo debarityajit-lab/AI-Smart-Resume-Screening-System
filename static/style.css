@@ -141,11 +141,11 @@ button:not(.tab)
 }
 button:not(.tab):hover
 {
-    opacity:0.9s;
+    opacity:0.9;
 }
 button:not(.tab):active
 {
-    opacity:0.8s;
+    opacity:0.8;
 }
 #error-box
 {

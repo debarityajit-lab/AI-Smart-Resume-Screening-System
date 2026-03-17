@@ -1,13 +1,13 @@
 function switchTab(name,btn)
 {
-    document.querySelectorAll('tab.panel').forEach(function(panel){
+    document.querySelectorAll('.tab.panel').forEach(function(panel){
         panel.classList.remove('active');});
 
-    document.querySelectorAll('tab').forEach(function(tabBtn){
-        tabBtn.classList.remove('active');});
+    document.querySelectorAll('.tab').forEach(function(tabBtn){
+        tabBtn.classList.remove('active');
+    });
 
         document.getElementById('tab-'+name).classList.add('active');
-
         btn.classList.add('active');
 }
 function scoreColor(score)
@@ -28,7 +28,7 @@ function showError(element,message)
 function clearError(element)
 {
     element.textContent="";
-    element.style.display='block';
+    element.style.display='none';
 }
 function analyzeResume()
 {
@@ -121,7 +121,7 @@ function renderSingleResult(data, hasJobDescription)
     } else {
         suggestionsEl.innerHTML = '';
     }
-   docment.getElementById('results').style.display = 'block';
+   document.getElementById('results').style.display = 'block';
 }
 function analyzeBatch() 
 {
@@ -170,4 +170,30 @@ function analyzeBatch()
             btn.disabled = false;
             btn.textContent = 'Rank all Candidates';
         });
+}
+function renderDashboard(data) 
+{
+    var candidates = data.candidates || [];
+    document.getElementById('stat-total').textContent = 'Total Candidates: ' + candidates.length;
+    if (candidates.length) 
+    {
+        var total = candidates.reduce(function(sum, c) { return sum + c.score; }, 0);
+        var avg   = Math.round(total / candidates.length);
+        document.getElementById('stat-avg').textContent       = 'Average Score: ' + avg;
+        document.getElementById('stat-top-scorer').textContent = 'Top Scorer: ' + candidates[0].candidate_name;
+    }
+    var tbody = document.getElementById('rank-body');
+    tbody.innerHTML = '';
+
+      candidates.forEach(function(candidate) {
+        var color = scoreColor(candidate.score);
+        var row   = document.createElement('tr');
+
+         row.innerHTML =
+            '<td>' + candidate.candidate_name + '</td>' +
+            '<td style="color:' + color + ';font-weight:bold">' + candidate.score + '/100</td>';
+
+        tbody.appendChild(row);
+    });
+    document.getElementById('hr-results').style.display = 'block';
 }
