@@ -58,7 +58,17 @@
         </div>
 
 
-        
+        <div id="tab-hr" class="tab-panel">
+            <textarea id="hr-jd" placeholder="Paste Job Description(required for ranking)"></textarea>
+            
+            <div id="hr-drop" class="upload-box">
+                <input type="file" id="hrUpload" accept=".pdf" multiple>
+                <label for="hrUpload" class="upload-label">
+                    <span>Upload multiple Resumes</span>
+                    <span class="upload-hint">PDF only. Hold ctrl/cmd to upload multiple</span>
+                </label>
+            </div>
+        </div>
         <script src="{{ url_for('static', filename='script.js') }}"></script>
     </body>
 </html>
