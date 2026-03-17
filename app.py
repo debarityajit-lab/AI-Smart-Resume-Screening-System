@@ -138,3 +138,40 @@ def analyze_resume():
     except ValueError as e:
         return jsonify({"error": f"AI analysis failed: {str(e)}"}), 500
     return jsonify(result)
+
+@app.route("\analyze-batch", methods=["POST"])
+def analyze_batch():
+    """
+    Accept multiple resume PDFs and one job description.
+    Returns a ranked list of candidates sorted by score (highest first).
+    Form Fields:
+    resumes-one or more PDF files (field name: "resumes")
+    job_description - plain-text job description (required for meaningful ranking)
+    """
+    files=request.files.getlist("resumes")
+    if not files or all(f.filename=="" for f in files):
+        return jsonify({"error": "No resume files uploaded."}), 400
+    if len(files)>20:
+        return jsonify({"error": "Maximum 20 resumes per batch."}), 400
+    job_description=request.form.get("job_description", "").strip()
+    results=[]
+    errors=[]
+    for file in files:
+        if file.filename=="":
+            continue
+        try:
+            result=analyze_single(file, job_description)
+            results.append(result)
+        except Exception as e:
+            errors.append({"filename": file.filename, "error": str(e)})
+    if not results and errors:
+        return jsonify({"error": "All resumes failed to process.", "details": errors}), 422
+    ranked=sorted(results, key=lambda r: (-r["score"], r["candidate_name"]))
+    for i, candidate in enumerate(ranked, start=1):
+        candidate["rank"]=i
+    return jsonify({
+        "total_candidates": len(ranked),
+        "job_description_provided": bool(job_description),
+        "candidates": ranked,
+        "processing errors": errors,
+    })
