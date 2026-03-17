@@ -85,4 +85,32 @@ h1
     color: #a0b0c0;
     font-size:15px;
 }
+textarea 
+{
+    width:100%;
+    background: #253545;
+    border: 1px solid #3a5068;
+    border-radius: 6px;
+    color:white;
+    padding: 10px;
+    margin-bottom : 15px;
+}
+button:not(.tab)
+{
+    width: 100%;
+    padding: 12px;
+    border: none;
+    border-radius: 8px;
+    background: linear-gradient(135deg,#00c6ff,#0072ff);
+    color: white;
+    font-weight: bold;
+    cursor: pointer;
+    margin-bottom: 10px;
+}
+#error-box
+{
+    color:#ff7070;
+    font-size:15px;
+    margin-top:10px;
+}
 
