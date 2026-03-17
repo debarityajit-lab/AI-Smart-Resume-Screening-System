@@ -30,11 +30,35 @@
                     <textarea id="jobDescription" placeholder="Paste Job Description here(optional)"></textarea>
                  </div>
                 
-
+                <button id="single-btn" onclick="analyzeResume()">Analyze Resume</button>
+            
+            <div id="error-box" class="error-box"></div>
+            
+            <div id="results">
+                <div class="result-row">
+                    <div id="score-text">Score: 0/100</div>
+                </div>
+                <div class="meta-block">
+                    <div class="meta-row" id="meta-name"></div>
+                    <div class="meta-row muted" id="meta-exp"></div>
+                    <div class="meta-row muted" id="meta-edu"></div>
+                    <div class="score-reason" id="score-reason"></div>
+                </div>
             </div>
-        
-        
+            
+            <div class="section-label">Skills Detected:</div>
+            <div class="tag-group" id="skill-tags"></div>
+
+            <div class="section-label" id="missing-label" style="display:none">Missing Skills:</div>
+            <div class="tag-group" id="missing-tags"></div>
+
+            <div class="section-label">Suggestions</div>
+            <ul class="suggestion-list" id="suggestions-list"></ul>
+            </div>
         </div>
+
+
+        
         <script src="{{ url_for('static', filename='script.js') }}"></script>
     </body>
 </html>
