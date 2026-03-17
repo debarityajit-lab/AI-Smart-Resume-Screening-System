@@ -7,6 +7,57 @@
         <link rel="stylesheet" href="{{ url_for('static', filename='style.css')}}"/>
     </head>
     <body>
+        <div class="container">
+            <div class="header">
+                <h1>AI Smart Resume Screening System</h1>
+                <p class="subtitle">Upload your resume here and get instant AI feedback</p>
+            </div>
+            
+            <div class="tags">
+                <button class="tab active" onclick="switchTab('single',this)">Single Resume</button>
+                <button class="tab" onclick="switchTab('hr',this)">HR Dashboard</button>
+            </div>
+
+            <div id="tab-single" class="tab-panel active">
+                <div id="single-drop" class="upload-box">
+                    <input type="file" id="resumeUpload" accept=".pdf">
+                    <label for="resumeUpload" class="upload-label">
+                        <span>Click to upload or drag &amp; drop pdf only</span>
+                    </label>
+                </div>
+
+                <div id="single-filename" class="filename-display">
+                    <textarea id="jobDescription" placeholder="Paste Job Description here(optional)"></textarea>
+                 </div>
+                
+                <button id="single-btn" onclick="analyzeResume()">Analyze Resume</button>
+            
+            <div id="error-box" class="error-box"></div>
+            
+            <div id="results">
+                <div class="result-row">
+                    <div id="score-text">Score: 0/100</div>
+                </div>
+                <div class="meta-block">
+                    <div class="meta-row" id="meta-name"></div>
+                    <div class="meta-row muted" id="meta-exp"></div>
+                    <div class="meta-row muted" id="meta-edu"></div>
+                    <div class="score-reason" id="score-reason"></div>
+                </div>
+            </div>
+            
+            <div class="section-label">Skills Detected:</div>
+            <div class="tag-group" id="skill-tags"></div>
+
+            <div class="section-label" id="missing-label" style="display:none">Missing Skills:</div>
+            <div class="tag-group" id="missing-tags"></div>
+
+            <div class="section-label">Suggestions</div>
+            <ul class="suggestion-list" id="suggestions-list"></ul>
+            </div>
+        </div>
+
+
         
         <script src="{{ url_for('static', filename='script.js') }}"></script>
     </body>
