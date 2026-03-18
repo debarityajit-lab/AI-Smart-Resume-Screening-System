@@ -10,7 +10,7 @@ app=Flask(__name__)
 CORS(app)
 
 genai.configure(api_key=os.environ.get("GEMINI_API_KEY","YOUR_API_KEY"))
-model=genai.GenerativeModel("gemini-1.5-flash")
+model=genai.GenerativeModel("gemini-2.5-flash")
 
 @app.route("/")
 def index():
@@ -136,6 +136,8 @@ def analyze_resume():
     try:
         result=analyze_single(file, job_description)
     except ValueError as e:
+        return jsonify({"error": str(e)}), 422
+    except Exception as e:
         return jsonify({"error": f"AI analysis failed: {str(e)}"}), 500
     return jsonify(result)
 
@@ -173,7 +175,7 @@ def analyze_batch():
         "total_candidates": len(ranked),
         "job_description_provided": bool(job_description),
         "candidates": ranked,
-        "processing errors": errors,
+        "processing_errors": errors,
     })
 
 if __name__=="__main__":
