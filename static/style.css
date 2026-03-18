@@ -20,7 +20,7 @@ body
     padding: 30px;
     border-radius: 14px;
     width: 100%;
-    max-width: 480px;
+    max-width: 700px;
 }
 .header
 {
@@ -250,7 +250,7 @@ button:not(.tab):active
 #hr-results
 {
     margin-top: 15px;
-    font-size:14px;
+    font-size:18px;
     background:#253545;
     border: radius 8px;
     padding: 12px;
@@ -261,6 +261,7 @@ button:not(.tab):active
     color: #7a99b0;
     display: flex;
     gap:10px;
+    font-weight:800;
 }
 .stat-box {
     flex: 1;
@@ -276,7 +277,7 @@ button:not(.tab):active
 }
 #hr-results,
 #table_container {
-    display: none ;
+    display: block ;
 }
 #table_container
 {

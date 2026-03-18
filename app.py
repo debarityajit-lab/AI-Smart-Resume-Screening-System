@@ -9,7 +9,7 @@ import os
 app=Flask(__name__)
 CORS(app)
 
-genai.configure(api_key=os.environ.get("GEMINI_API_KEY","YOUR_API_KEY"))
+genai.configure(api_key=os.environ.get("GEMINI_API_KEY","AIzaSyBou_DtJj1UWw8f1GMeDQ7zLgzsReJlOqM"))
 model=genai.GenerativeModel("gemini-2.5-flash")
 
 @app.route("/")
