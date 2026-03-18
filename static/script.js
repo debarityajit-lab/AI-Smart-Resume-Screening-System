@@ -185,11 +185,12 @@ function renderDashboard(data)
     var tbody = document.getElementById('rank-body');
     tbody.innerHTML = '';
 
-      candidates.forEach(function(candidate) {
+      candidates.forEach(function(candidate,index) {
         var color = scoreColor(candidate.score);
         var row   = document.createElement('tr');
 
          row.innerHTML =
+            '<td>'+ (index+1) + '</td>' + 
             '<td>' + candidate.candidate_name + '</td>' +
             '<td style="color:' + color + ';font-weight:bold">' + candidate.score + '/100</td>'+
             '<td>' + (candidate.experience_years || 'N/A') + '</td>' +
