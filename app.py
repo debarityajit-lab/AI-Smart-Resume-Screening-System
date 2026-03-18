@@ -9,7 +9,7 @@ import os
 app=Flask(__name__)
 CORS(app)
 
-genai.configure(api_key=os.environ.get("GEMINI_API_KEY","AIzaSyBou_DtJj1UWw8f1GMeDQ7zLgzsReJlOqM"))
+genai.configure(api_key=os.environ.get("GEMINI_API_KEY","YOUR_API_KEY"))
 model=genai.GenerativeModel("gemini-2.5-flash")
 
 @app.route("/")
@@ -55,7 +55,7 @@ The JSON must have exactly these keys:
   "skills": ["skill1","skill2",...],
   "missing_skills": ["skill1",...],
   "experience_years": <integer or null>,
-  "education": "<highest degree and field, e.g. B.Tech Computer Science>",
+  "education": "<highest degree abbreviated + field abbreviated, e.g. B.Tech CSE, M.Sc Physics, MBA Finance, Ph.D ML>",
   "suggestions": [
    "Specific, actionable suggestion 1",
    "Specific, actionable suggestion 2"
@@ -68,7 +68,7 @@ Rules:
 -  "skills": list every technical and soft skill you can detect.
 -  "missing_skills": skills from the job description not found in resume (empty array if no JD given).
 -  "experience_years": total years of work experience as an integer, or null if unclear.
--  "education": highest qualification found, or "Not specified".
+-  "education": highest qualification found, abbreviated (B.Tech/B.E/B.Sc/M.Tech/M.Sc/MBA/Ph.D etc.) + field also abbreviated (CSE/EE/ECE/ME/CE/IT/CS etc.), or "Not specified".
 -  "suggestions": 4-6 concrete, specific improvement tips (not vague advice).
 -  Return ONLY the JSON. No markdown. No explanation outside the JSON.
 {jd_block}
