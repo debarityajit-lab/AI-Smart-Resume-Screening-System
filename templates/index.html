@@ -21,18 +21,19 @@
             <div id="tab-single" class="tab-panel active">
                     <div class="upload-box">
                         <input type="file" id="resumeUpload" accept=".pdf">
-                        <label for="resumeUpload" class="upload-label">
-                            <span>Click to upload or drag &amp; drop pdf only</span>
-                        </label>
+                        <div class="upload-label">
+                            <span>Click to upload or drag &amp; drop</span>
+                            <span class="upload-hint">PDF only</span>
+                        </div>
                     </div>
-                    
+                    <div id="single-chips" class="chips-container"></div>
                     <div>
                         <textarea id="jobDescription" placeholder="Paste Job Description here(optional)"></textarea>
                     </div>
-
+                    
                 <button id="single-btn" onclick="analyzeResume()">Analyze Resume</button>
             
-            <div id="error-box"></div>
+            <div class="error-box" id="single-error"></div>
             
             <div id="results">
                 <div class="result-row">
@@ -60,36 +61,51 @@
 
 
             <div id="tab-hr" class="tab-panel">
-                <textarea id="hr-jd" placeholder="Paste Job Description(required for ranking)"></textarea>
+                <textarea id="hr-jd" placeholder="Paste Job Description(required for ranking)*"></textarea>
                 
                 <div id="hr-drop" class="upload-box">
                     <input type="file" id="hrUpload" accept=".pdf" multiple>
-                    <label for="hrUpload" class="upload-label">
-                        <span>Click to Upload multiple Resumes. </span>
+                    <div class="upload-label">
+                        <span>Click to Upload multiple Resumes.(Up to 20) </span>
                         <span class="upload-hint">PDF only. Hold ctrl/cmd to upload multiple</span>
-                    </label>
+                    </div>
                 </div>
+                <div id="hr-chips" class="chips-container"></div>
 
                 
                     <button id="hr-btn" onclick="analyzeBatch()">Rank all Candidates</button>
-                
+                    <div class="error-box" id="hr-error"></div>
                 <div id="hr-results">
-                    <div id="stat-total">Total Candidates: 0</div>
-                    <div id="stat-avg">Average Score: 0</div>
-                    <div id="stat-top-scorer">Top Scorer: N/A</div>
+                    <div id="stat-total" class="stat-box">
+                    <div>Total Candidates</div>
+                    <div class="value">0</div>
+                    </div>
+
+                    <div id="stat-avg" class="stat-box">
+                    <div>Average Score</div>
+                    <div class="value">0</div>
+                    </div>
+
+                    <div id="stat-top-scorer" class="stat-box">
+                    <div>Top Scorer</div>
+                    <div class="value">N/A</div>
+                    </div>
                 </div>
 
-
-                <h3>Candidate Rankings</h3>
-                <table>
-                    <thead>
-                        <tr>
-                            <th>Name</th>
-                            <th>Score</th>
-                        </tr>
-                    </thead>
-                    <tbody id="rank-body"></tbody>
-                </table>
+                <div id="table_container">
+                    <h3>Candidate Rankings</h3>
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>Name</th>
+                                <th>Score</th>
+                                <th>Experience</th>
+                                <th>Education</th>
+                            </tr>
+                        </thead>
+                        <tbody id="rank-body"></tbody>
+                    </table>
+                </div>
 
             </div>
     </div>

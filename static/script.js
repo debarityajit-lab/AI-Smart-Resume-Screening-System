@@ -1,6 +1,6 @@
 function switchTab(name,btn)
 {
-    document.querySelectorAll('.tab.panel').forEach(function(panel){
+    document.querySelectorAll('.tab-panel').forEach(function(panel){
         panel.classList.remove('active');});
 
     document.querySelectorAll('.tab').forEach(function(tabBtn){
@@ -34,7 +34,7 @@ function analyzeResume()
 {
     var fileInput =document.getElementById('resumeUpload');
     var jd =document.getElementById('jobDescription').value.trim();
-    var errBox    = document.getElementById('error-box');
+    var errBox    = document.getElementById('single-error');
     var resultsEl = document.getElementById('results');
     var btn       = document.getElementById('single-btn');
 
@@ -127,7 +127,7 @@ function analyzeBatch()
 {
     var filesInput = document.getElementById('hrUpload');
     var jd         = document.getElementById('hr-jd').value.trim();
-    var errBox     = document.getElementById('error-box'); 
+    var errBox     = document.getElementById('hr-error'); 
     var resultsEl  = document.getElementById('hr-results');
     var btn        = document.getElementById('hr-btn');
 
@@ -174,13 +174,13 @@ function analyzeBatch()
 function renderDashboard(data) 
 {
     var candidates = data.candidates || [];
-    document.getElementById('stat-total').textContent = 'Total Candidates: ' + candidates.length;
+    document.querySelector('#stat-total .value').textContent = candidates.length;
     if (candidates.length) 
     {
         var total = candidates.reduce(function(sum, c) { return sum + c.score; }, 0);
         var avg   = Math.round(total / candidates.length);
-        document.getElementById('stat-avg').textContent       = 'Average Score: ' + avg;
-        document.getElementById('stat-top-scorer').textContent = 'Top Scorer: ' + candidates[0].candidate_name;
+        document.querySelector('#stat-avg .value').textContent = avg;
+    document.querySelector('#stat-top-scorer .value').textContent = candidates[0].candidate_name;
     }
     var tbody = document.getElementById('rank-body');
     tbody.innerHTML = '';
@@ -191,9 +191,30 @@ function renderDashboard(data)
 
          row.innerHTML =
             '<td>' + candidate.candidate_name + '</td>' +
-            '<td style="color:' + color + ';font-weight:bold">' + candidate.score + '/100</td>';
+            '<td style="color:' + color + ';font-weight:bold">' + candidate.score + '/100</td>'+
+            '<td>' + (candidate.experience_years || 'N/A') + '</td>' +
+    '<td>' + (candidate.education || 'N/A') + '</td>' ;
 
         tbody.appendChild(row);
     });
     document.getElementById('hr-results').style.display = 'block';
+    document.getElementById('table_container').style.display = 'block';
 }
+function handleFileChips(inputId, containerId) {
+    const input = document.getElementById(inputId);
+    const container = document.getElementById(containerId);
+
+    input.addEventListener("change", function () {
+        container.innerHTML = "";
+
+        Array.from(input.files).forEach(file => {
+            const chip = document.createElement("div");
+            chip.className = "chip";
+            chip.innerText = file.name;
+
+            container.appendChild(chip);
+        });
+    });
+}
+handleFileChips("resumeUpload", "single-chips");
+handleFileChips("hrUpload", "hr-chips");

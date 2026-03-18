@@ -54,12 +54,15 @@ h1
     cursor:pointer;
     font-size: 14px;
     transition: background 0.2s, color 0.2s;
+    border-bottom: 1px solid transparent;
 }
 .tab.active
 {
     background: #1e2a38;
     color: white;
     font-weight: 600;
+    border-bottom: 3px solid #006cff;
+    box-shadow: 0 2px 8px rgba(0, 198, 255, 0.3);
 }
 .tab-panel
 {
@@ -147,7 +150,7 @@ button:not(.tab):active
 {
     opacity:0.8;
 }
-#error-box
+.error-box
 {
     color:#ff7070;
     font-size:15px;
@@ -213,10 +216,6 @@ button:not(.tab):active
     border-radius: 12px;
     font-size: 11px;
 }
-.suggestion-list
-{
-    list-style: none;
-}
 .tag-missing
 {
     background: rgba(255,120,80,0.1);
@@ -226,30 +225,106 @@ button:not(.tab):active
     border-radius:12px;
     font-size:11px;
 }
+.suggestion-list
+{
+    list-style-type :decimal;
+    padding-left: 20px;
+}
 .suggestion-list li
 {
     font-size:12px;
-    margin-bottom:5px;
+    margin-bottom:6px;
     color: #a0b0c0;
+    padding: 5px 0;
+    border-bottom: 1px solid #253545;
+    display:flex;
+    gap:8px;
+    align-items:flex-start;
+    line-height:1.5;
+}
+.suggestion-list li::before
+{
+    color:#00c6ff;
+    flex-shrink: 0;
 }
 #hr-results
 {
     margin-top: 15px;
-    font-size:15px;
+    font-size:14px;
+    background:#253545;
+    border: radius 8px;
+    padding: 12px;
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    gap: 8px;
+    text-align: center;
+    color: #7a99b0;
+    display: flex;
+    gap:10px;
+}
+.stat-box {
+    flex: 1;
+    border: 1px solid #ccc;
+    padding: 10px;
+    text-align: center;
+}
+.label
+{
+    color: #7a99b0;
+    font-size:16px;
+    font-weight: bold;
+}
+#hr-results,
+#table_container {
+    display: none ;
+}
+#table_container
+{
+    width:100%;
+    overflow-x: auto;
 }
 table
 {
     width:100%;
-    margin-top:10px;
+    margin-top:12px;
     border-collapse:collapse;
+    table-layout: fixed;
+    min-width:600px;
 }
 th,td
 {
     border: 1px solid #3a5068;
-    padding: 8px;
-    font-size: 15px;
+    padding:10px 8px;
+    font-size: 14px;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
 }
 th
 {
     background: #253545;
+    font-size:12px;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    color: #7a99b0;
+}
+tr:hover td
+{
+    color: #253545;
+}
+.chips-container {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+    margin-top: 10px;
+}
+
+.chip {
+    background: rgba(0, 198, 255, 0.08);
+    border: 1px solid rgba(0, 198, 255, 0.4);
+    color: #fff;
+    padding: 6px 10px;
+    border-radius: 20px;
+    font-size: 13px;
+    margin-bottom: 5px;
 }
