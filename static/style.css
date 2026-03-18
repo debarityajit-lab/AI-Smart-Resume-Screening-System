@@ -277,7 +277,7 @@ button:not(.tab):active
 }
 #hr-results,
 #table_container {
-    display: block ;
+    display: none ;
 }
 #table_container
 {
